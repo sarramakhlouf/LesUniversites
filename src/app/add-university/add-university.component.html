@@ -1,0 +1,30 @@
+<div class="container">
+    <div>
+        <h2>Ajouter une université :</h2>
+    </div>
+    <form >
+        <div class="col-sm-2 col-md-2 col-lg-2">
+            <label >ID Universitére</label>
+            <input type="text" [(ngModel)]="newUni.idUni" name="idUni" class="form-control">
+        </div>
+        <div class="col-sm-4 col-md-4 col-lg-4" >
+            <label >Nom Université</label>
+            <input type="text"[(ngModel)]= "newUni.nomUni" name="nomUni" class="form-control">
+        </div>
+        <div class="col-sm-2 col-md-2 col-lg-2">
+            <label >Adresse Université</label>
+            <input type="text" [(ngModel)]= "newUni.adresseUni" name="adresseUni" class="form-control">
+        </div>
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <label >Date création</label>
+            <input type="date" [(ngModel)]= "newUni.dateCreation" name="dateCreation" class="form-control">
+        </div>
+        <div class="col-sm-2 col-md-2 col-lg-2">
+            <label >Nombre des étudiants</label>
+            <input type="number" [(ngModel)]= "newUni.nombreEtudiants" name="nombreEtudiants" class="form-control">
+        </div>
+        <div class="mt-2">
+            <button type="submit" (click)="addUniversity()"class="btn btn-success">Ajouter</button>
+        </div>
+    </form>
+</div>

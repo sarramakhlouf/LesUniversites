@@ -1,0 +1,30 @@
+<div class="container">
+    <div>
+        <h2>Modifier les données d'une université:</h2>
+    </div>
+    <form >
+        <div class="col-sm-2 col-md-2 col-lg-2">
+            <label >ID université</label>
+            <input type="text" readonly [(ngModel)]="currentUniversity.idUni" name="idUni" class="form-control">
+        </div>
+        <div class="col-sm-4 col-md-4 col-lg-4" >
+            <label >Nom université</label>
+            <input type="text"[(ngModel)]= "currentUniversity.nomUni" name="nomUni" class="form-control">
+        </div>
+        <div class="col-sm-2 col-md-2 col-lg-2">
+            <label >Adresse Université</label>
+            <input type="text" [(ngModel)]= "currentUniversity.adresseUni" name="adresseUni" class="form-control">
+        </div>
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <label >Date création</label>
+            <input type="date" [ngModel]="currentUniversity.dateCreation | date: 'yyyy-MM-dd'"(ngModelChange)=" currentUniversity.dateCreation= $event" name="dateCreation" class="form-control">
+        </div>
+        <div class="col-sm-2 col-md-2 col-lg-2">
+            <label >Nombre Des etudiants</label>
+            <input type="text" [(ngModel)]= "currentUniversity.nombreEtudiants" name="nombreEtudiants" class="form-control">
+        </div>
+        <div class="mt-2">
+            <button type="submit" (click)="updateUniversity()" class="btn btn-success">Modifer</button>
+        </div>
+    </form>
+</div>

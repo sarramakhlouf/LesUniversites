@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <table class="table table-striped">
+                <tr> 
+                    <th>Id</th>
+                    <th>Nom</th> 
+                    <th>Adresse</th> 
+                    <th>Date Création</th>
+                    <th>Nombre des étudiants</th> 
+                    <th>Suppression des universités</th>
+                    <th>Modification d'une université</th>
+                </tr>
+                <tbody *ngFor="let university of universities">
+                    <tr >
+                        <td>{{university.idUni}}</td>
+                        <td>{{university.nomUni}}</td>
+                        <td>{{university.adresseUni}}</td>
+                        <td>{{university.dateCreation | date :'dd/MM/yyyy'}}</td>
+                        <td>{{university.nombreEtudiants}}</td>
+                        <td><a class="btn btn-danger" (click)="supprimerUniversity(university)">Supprimer</a></td>
+                        <td><a class="btn btn-success" [routerLink]="['/updateUniversity',university.idUni]">Modifier</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
