@@ -8,6 +8,7 @@
                     <th>Adresse</th> 
                     <th>Date Création</th>
                     <th>Nombre des étudiants</th> 
+                    <th>Domaines</th>
                     <th>Suppression des universités</th>
                     <th>Modification d'une université</th>
                 </tr>
@@ -18,6 +19,7 @@
                         <td>{{university.adresseUni}}</td>
                         <td>{{university.dateCreation | date :'dd/MM/yyyy'}}</td>
                         <td>{{university.nombreEtudiants}}</td>
+                        <td>{{university.domaine.nomDom}}</td>
                         <td><a class="btn btn-danger" (click)="supprimerUniversity(university)">Supprimer</a></td>
                         <td><a class="btn btn-success" [routerLink]="['/updateUniversity',university.idUni]">Modifier</a></td>
                     </tr>

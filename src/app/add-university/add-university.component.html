@@ -23,6 +23,12 @@
             <label >Nombre des étudiants</label>
             <input type="number" [(ngModel)]= "newUni.nombreEtudiants" name="nombreEtudiants" class="form-control">
         </div>
+        <div class="col-sm-4 col-md-4 col-lg-4">
+            <label>Domaines</label>
+            <select class="form-control form-control-lg" id="idDom" name="idDom" [(ngModel)]="newIdDom">
+                <option *ngFor="let Dom of domaines" [value]="Dom.idDom" >{{Dom.nomDom}}</option>
+            </select>
+        </div>  
         <div class="mt-2">
             <button type="submit" (click)="addUniversity()"class="btn btn-success">Ajouter</button>
         </div>
