@@ -1,36 +1,47 @@
 <div class="container">
     <div>
-        <h2>Modifier les données d'une université:</h2>
+        <h2>Modifier les données d'une université :</h2>
     </div>
-    <form >
-        <div class="col-sm-2 col-md-2 col-lg-2">
-            <label >ID université</label>
-            <input type="text" hidden [(ngModel)]="currentUniversity.idUni" name="idUni" class="form-control">
+    <form #universityForm="ngForm">
+        <div class="row">
+            <!-- ID Université (caché) -->
+            <div class="col-sm-2 col-md-2 col-lg-2">
+                <label>ID université</label>
+                <input type="text" hidden [(ngModel)]= "currentUniversity!.idUni" name="idUni" class="form-control">
+            </div>
+            <!-- Nom Université -->
+            <div class="col-sm-4 col-md-4 col-lg-4">
+                <label>Nom université</label>
+                <input type="text" [(ngModel)] = "currentUniversity!.nomUni" name="nomUni" class="form-control" required>
+            </div>
+            <!-- Adresse Université -->
+            <div class="col-sm-2 col-md-2 col-lg-2">
+                <label>Adresse Université</label>
+                <input type="text" [(ngModel)]= "currentUniversity!.adresseUni" name="adresseUni" class="form-control" required>
+            </div>
+            <!-- Date de Création -->
+            <div class="col-sm-4 col-md-4 col-lg-4">
+                <label>Date création</label>
+                <input type="date" [(ngModel)]= "currentUniversity!.dateCreation" name="dateCreation" class="form-control" required>
+            </div>
+            <!-- Nombre d'Étudiants -->
+            <div class="col-sm-2 col-md-2 col-lg-2">
+                <label>Nombre des étudiants</label>
+                <input type="number" [(ngModel)]= "currentUniversity!.nombreEtudiants" name="nombreEtudiants" class="form-control" required>
+            </div>
+            <!-- Domaines -->
+            <div class="col-sm-4 col-md-4 col-lg-4">
+                <label>Domaines</label>
+                <select class="form-control" [(ngModel)]= "updatedDomId" name="idDom" required>
+                    <option *ngFor="let Dom of domaines" [value]="Dom.idDom">{{ Dom.nomDom }}</option>
+                </select>
+            </div>
         </div>
-        <div class="col-sm-4 col-md-4 col-lg-4" >
-            <label >Nom université</label>
-            <input type="text"[(ngModel)]= "currentUniversity.nomUni" name="nomUni" class="form-control">
-        </div>
-        <div class="col-sm-2 col-md-2 col-lg-2">
-            <label >Adresse Université</label>
-            <input type="text" [(ngModel)]= "currentUniversity.adresseUni" name="adresseUni" class="form-control">
-        </div>
-        <div class="col-sm-4 col-md-4 col-lg-4">
-            <label >Date création</label>
-            <input type="date" [ngModel]="currentUniversity.dateCreation | date: 'yyyy-MM-dd'"(ngModelChange)=" currentUniversity.dateCreation= $event" name="dateCreation" class="form-control">
-        </div>
-        <div class="col-sm-2 col-md-2 col-lg-2">
-            <label >Nombre Des etudiants</label>
-            <input type="text" [(ngModel)]= "currentUniversity.nombreEtudiants" name="nombreEtudiants" class="form-control">
-        </div>
-        <div class="col-sm-4 col-md-4 col-lg-4">
-            <label >Domaines</label>
-            <select class="form-control form-control-lg" id="idDom" name="idDom"[(ngModel)]="updatedDomId">
-                <option *ngFor="let Dom of domaines" [value]="Dom.idDom" >{{Dom.nomDom}}</option>
-            </select>
-        </div>
+        <!-- Bouton de soumission -->
         <div class="mt-2">
-            <button type="submit" (click)="updateUniversity()" class="btn btn-success">Modifer</button>
+            <button type="submit" (click)="updateUniversity()" [disabled]="universityForm.invalid" class="btn btn-success">
+                Modifier
+            </button>
         </div>
     </form>
 </div>

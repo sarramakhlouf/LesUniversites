@@ -1,45 +1,61 @@
-import { Component } from '@angular/core';
-import { university } from '../model/university.model';
+import { Component, OnInit } from '@angular/core'; // Ajout de OnInit
+import { University } from '../model/university.model'; // Nom de classe avec majuscule
 import { UniversityService } from '../services/university.service';
-import { ActivatedRoute,Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Domaine } from '../model/Domaine.model';
 
 @Component({
   selector: 'app-add-university',
   templateUrl: './add-university.component.html',
-  styleUrl: './add-university.component.css'
+  styleUrls: ['./add-university.component.css'] // Correction ici
 })
-export class AddUniversityComponent //implements OnInit 
-{
-  newUni = new university();
-  domaines! : Domaine[];
-  newIdDom! : number;
-  newDomaine! : Domaine;
-  updatedDomId! : number;
+export class AddUniversityComponent implements OnInit { // Ajout de OnInit
+  newUni = new University(); // Nom de classe avec majuscule
+  domaines!: Domaine[];
+  newIdDom!: number;
+  updatedDomId!: number;
 
-  constructor(private UniversityService: UniversityService,
-    private router :Router,
-    private activatedRoute: ActivatedRoute,) { }
-  
+  constructor(
+    private universityService: UniversityService, // Convention de nommage : camelCase
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) {}
+
   ngOnInit(): void {
     // Charger les domaines depuis le service
-    this.domaines = this.UniversityService.listeDomaines();
+    this.domaines = this.universityService.listeDomaines();
     // Vérifier si l'ID de l'université est fourni dans les paramètres d'URL (mode édition)
     const id = this.activatedRoute.snapshot.params['id'];
     if (id) {
-    // Si un ID est présent, récupérer les informations de l'université à modifier
-      this.newUni = this.UniversityService.consulterUniversity(id);
-      this.updatedDomId = this.newUni.domaine.idDom;  // Préremplir le domaine actuel
+      // Si un ID est présent, récupérer les informations de l'université à modifier
+      const university = this.universityService.consulterUniversity(id);
+      if (university) {
+        // Si l'université existe, assigner ses informations
+        this.newUni = university;
+        this.updatedDomId = this.newUni.domaine?.idDom;
+      } else {
+        // Gérer le cas où l'université n'est pas trouvée (facultatif)
+        console.error('Université non trouvée pour l\'ID:', id);
+        // Vous pourriez rediriger vers une page d'erreur ou effectuer une autre action
+      }
     }
   }
+  
   addUniversity(): void {
     // Récupérer l'objet du domaine sélectionné à partir de l'ID
-    this.newUni.domaine = this.UniversityService.consulterDomaines(this.newIdDom);
-    if (this.newUni.domaine) {
+    const selectedDomaine = this.universityService.consulterDomaines(this.newIdDom);
+    if (selectedDomaine) { 
+      // Si le domaine existe, l'assigner à l'université
+      this.newUni.domaine = selectedDomaine;
       // Ajouter ou mettre à jour l'université via le service
-      this.UniversityService.ajouterUniversity(this.newUni);
+      this.universityService.ajouterUniversity(this.newUni);
       // Naviguer vers la liste des universités après l'ajout ou la mise à jour
       this.router.navigate(['universities']);
+    } else {
+      // Gérer le cas où aucun domaine n'est trouvé (facultatif)
+      console.error('Domaine non trouvé pour l\'ID:', this.newIdDom);
+      // Vous pourriez afficher un message d'erreur ou empêcher l'ajout si nécessaire
     }
   }
+  
 }

@@ -1,64 +1,69 @@
 import { Injectable } from '@angular/core';
-import { university } from '../model/university.model';
-import { Domaine } from '../model/Domaine.model';
+import { University } from '../model/university.model';
+import { Domaine } from '../model/Domaine.model'; // Vérifiez le nom de fichier ici
 @Injectable({
-providedIn: 'root'
+  providedIn: 'root'
 })
 export class UniversityService {
-  universities : university[];
-  domaines : Domaine[];
 
- 
+  universities: University[];
+  domaines: Domaine[];
+  universitiesRecherche: University[] = [];
+
   constructor() {
-    this.domaines = [ {idDom : 1, nomDom : "Technologies d'Informatique "},
-                      {idDom : 2, nomDom : "Lettres et langues"},
-                      {idDom : 3, nomDom : "Santé"},
-                      {idDom : 4, nomDom : "Economie et gestion"},
-                    ];
-    this.universities= [
-      { idUni : 1, nomUni : "Iset", adresseUni : "Nabeul", dateCreation: new Date("01/14/2011"), nombreEtudiants : 2000, domaine: {idDom : 1, nomDom : "Technologies d'Informatique"}},
-      { idUni : 2, nomUni : "Ihec", adresseUni : "Carthage", dateCreation : new Date("12/17/2010"), nombreEtudiants : 1000, domaine : {idDom : 4, nomDom : "Economie et gestion"}},
-      { idUni : 3, nomUni :"Université centrale", adresseUni : "Tunis", dateCreation : new Date("02/20/2020"), nombreEtudiants : 5000,domaine : {idDom : 3, nomDom : "Santé"}}
+    this.domaines = [
+      { idDom: 1, nomDom: "Informatique" },
+      { idDom: 2, nomDom: "Lettres et langues" },
+      { idDom: 3, nomDom: "Santé" },
+      { idDom: 4, nomDom: "Economie et gestion" },
+    ];
+    this.universities = [
+      { idUni: 1, nomUni: "Iset", adresseUni: "Nabeul", dateCreation: new Date("01/14/2011"), nombreEtudiants: 2000, domaine: { idDom: 1, nomDom: "Informatique" } },
+      { idUni: 2, nomUni: "Ihec", adresseUni: "Carthage", dateCreation: new Date("12/17/2010"), nombreEtudiants: 1000, domaine: { idDom: 4, nomDom: "Economie et gestion" } },
+      { idUni: 3, nomUni: "Université centrale", adresseUni: "Tunis", dateCreation: new Date("02/20/2020"), nombreEtudiants: 5000, domaine: { idDom: 3, nomDom: "Santé" } }
     ];
   }
-  listeUniversities():university[] {
+
+  listeUniversities(): University[] {
     return this.universities;
   }
-  ajouterUniversity( uni: university){
+
+  ajouterUniversity(uni: University): void {
     this.universities.push(uni);
   }
-  supprimerUniversity( uni: university){
-    const index = this.universities.indexOf(uni, 0);
-    if (index > -1) {
-    this.universities.splice(index, 1);
-    } 
-  } 
-  consulterUniversity(id:number): university{
-    return this.universities.find(p => p.idUni == id)!;
-  } 
-  updateUniversity(uni:university)
-  {
-    // console.log(p);
-    this.supprimerUniversity(uni);
-    this.ajouterUniversity(uni);
-    this.trierUniversities();
-  } 
-  trierUniversities(){
-    this.universities = this.universities.sort((n1,n2) => {
-      if (n1.idUni! > n2.idUni!) {
-        return 1;
-      }
-      if (n1.idUni! < n2.idUni!) {
-        return -1;
-      }
-      return 0;
-    });
+
+  supprimerUniversity(uni: University): void {
+    const index = this.universities.indexOf(uni);
+    if (index !== -1) {
+      this.universities.splice(index, 1);
+    }
   }
-  listeDomaines():Domaine[] {
+
+  consulterUniversity(id: number): University | undefined {
+    return this.universities.find(p => p.idUni === id);
+  }
+
+  updateUniversity(uni: University): void {
+    const index = this.universities.findIndex(u => u.idUni === uni.idUni);
+    if (index !== -1) {
+      this.universities[index] = uni; // Mettre à jour directement
+    }
+    this.trierUniversities();
+  }
+
+  trierUniversities(): void {
+    this.universities.sort((n1, n2) => n1.idUni - n2.idUni);
+  }
+
+  listeDomaines(): Domaine[] {
     return this.domaines;
   }
-  consulterDomaines(id:number): Domaine{ 
-    return this.domaines.find(Dom => Dom.idDom == id)!;
-    }
-    
+
+  consulterDomaines(id: number): Domaine | undefined {
+    return this.domaines.find(dom => dom.idDom === id);
+  }
+
+  rechercherParDomaine(idDom: number): University[] {
+    return this.universities.filter(uni => uni.domaine.idDom === idDom);
+  }
 }

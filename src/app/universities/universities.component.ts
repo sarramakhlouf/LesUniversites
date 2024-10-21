@@ -1,27 +1,28 @@
-import { Component } from '@angular/core';
-import { university } from '../model/university.model';
+import { Component, OnInit } from '@angular/core';
+import { University } from '../model/university.model';
 import { UniversityService } from '../services/university.service';
-
 
 @Component({
   selector: 'app-universities',
   templateUrl: './universities.component.html',
-  styleUrl: './universities.component.css'
+  styleUrls: ['./universities.component.css'] // Correction ici
 })
-export class UniversitiesComponent //implements OnInit// 
+export class UniversitiesComponent implements OnInit // Correction de l'implémentation
 {
-  
-  universities : university[]; //un tableau de Produit
-  constructor(private UniversityService: UniversityService ) {
-    this.universities = UniversityService.listeUniversities();
+  universities!: University[]; // Correction du type et commentaire retiré
+
+  constructor(private UniversityService: UniversityService) { }
+
+  ngOnInit(): void {
+    this.universities = this.UniversityService.listeUniversities(); // Accès aux données lors de l'initialisation
   }
-  supprimerUniversity(uni: university)
-  {
+
+  supprimerUniversity(uni: University): void { // Correction du type
     let conf = confirm("Etes-vous sûr ?");
-    if (conf)
-    {
+    if (conf) {
       this.UniversityService.supprimerUniversity(uni);
     }
   }
 }
+
 

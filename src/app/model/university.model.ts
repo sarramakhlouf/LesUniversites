@@ -1,6 +1,6 @@
 import { Domaine } from "./Domaine.model";
 
-export class university {
+export class University {
     idUni! : number;
     nomUni! : string;
     adresseUni! : string;
