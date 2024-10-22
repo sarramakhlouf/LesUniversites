@@ -2,7 +2,7 @@
     <div>
         <h2>Ajouter une université :</h2>
     </div>
-    <form (ngSubmit)="addUniversity()">
+    <form (ngSubmit)="addUniversity()" #universityForm="ngForm">
         <div class="row">
             <div class="col-sm-2 col-md-2 col-lg-2">
                 <label>ID Université</label>
@@ -30,9 +30,19 @@
                     <option *ngFor="let Dom of domaines" [value]="Dom.idDom">{{Dom.nomDom}}</option>
                 </select>
             </div>
+            <div class="col-sm-4 col-md-4 col-lg-4">
+                <label>Email</label>
+                <input type="email" [(ngModel)]="newUni.email" name="email" class="form-control" required email minlength="5" #email="ngModel" pattern="[a-z0-9._%+-]+@gmail.com">
+                <!-- Message d'erreur si l'email n'est pas valide -->
+                <div *ngIf="email.invalid && email.touched">
+                    <small class="text-danger" *ngIf="email.errors?.['required']">L'email est requis.</small>
+                    <small class="text-danger" *ngIf="email.errors?.['email']">Format d'email invalide.</small>
+                    <small class="text-danger" *ngIf="email.errors?.['minlength']">L'email doit contenir au moins 5 caractères.</small>
+                </div>
+            </div>
         </div>
         <div class="mt-2">
-            <button type="submit" class="btn btn-success">Ajouter</button>
-        </div>
+            <button type="submit" class="btn btn-success" [disabled]="universityForm.invalid">Ajouter</button>
+        </div>   
     </form>
 </div>

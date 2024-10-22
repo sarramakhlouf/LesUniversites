@@ -7,4 +7,5 @@ export class University {
     dateCreation! : Date ;
     nombreEtudiants! : number ;
     domaine! : Domaine ;
+    email!: string;
 }

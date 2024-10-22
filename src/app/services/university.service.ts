@@ -18,9 +18,9 @@ export class UniversityService {
       { idDom: 4, nomDom: "Economie et gestion" },
     ];
     this.universities = [
-      { idUni: 1, nomUni: "Iset", adresseUni: "Nabeul", dateCreation: new Date("01/14/2011"), nombreEtudiants: 2000, domaine: { idDom: 1, nomDom: "Informatique" } },
-      { idUni: 2, nomUni: "Ihec", adresseUni: "Carthage", dateCreation: new Date("12/17/2010"), nombreEtudiants: 1000, domaine: { idDom: 4, nomDom: "Economie et gestion" } },
-      { idUni: 3, nomUni: "Université centrale", adresseUni: "Tunis", dateCreation: new Date("02/20/2020"), nombreEtudiants: 5000, domaine: { idDom: 3, nomDom: "Santé" } }
+      { idUni: 1, nomUni: "Iset", adresseUni: "Nabeul", dateCreation: new Date("01/14/2011"), nombreEtudiants: 2000, domaine: { idDom: 1, nomDom: "Informatique" } , email: "isetnabeul@gmail.com"},
+      { idUni: 2, nomUni: "Ihec", adresseUni: "Carthage", dateCreation: new Date("12/17/2010"), nombreEtudiants: 1000, domaine: { idDom: 4, nomDom: "Economie et gestion" }, email: "ihecCarthage@gmail.com"},
+      { idUni: 3, nomUni: "Université centrale", adresseUni: "Tunis", dateCreation: new Date("02/20/2020"), nombreEtudiants: 5000, domaine: { idDom: 3, nomDom: "Santé" }, email: "UniversiteCentrale@gmail.com" }
     ];
   }
 
@@ -60,10 +60,10 @@ export class UniversityService {
   }
 
   consulterDomaines(id: number): Domaine | undefined {
-    return this.domaines.find(dom => dom.idDom === id);
+    return this.domaines.find(dom => dom.idDom == id);
   }
 
   rechercherParDomaine(idDom: number): University[] {
-    return this.universities.filter(uni => uni.domaine.idDom === idDom);
+    return this.universities.filter(uni => uni.domaine.idDom == idDom);
   }
 }

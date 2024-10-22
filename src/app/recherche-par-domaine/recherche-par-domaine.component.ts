@@ -11,7 +11,7 @@ import { UniversityService } from '../services/university.service';
 export class RechercheParDomaineComponent implements OnInit {
   universities!: University[];
   IdDomaine!: number;
-  domaines: Domaine[] = [];
+  domaines!: Domaine[];
 
   constructor(private universityService: UniversityService) {}
 

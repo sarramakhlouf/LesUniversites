@@ -44,6 +44,7 @@ export class AddUniversityComponent implements OnInit { // Ajout de OnInit
   addUniversity(): void {
     // Récupérer l'objet du domaine sélectionné à partir de l'ID
     const selectedDomaine = this.universityService.consulterDomaines(this.newIdDom);
+    console.log(this.newIdDom);
     if (selectedDomaine) { 
       // Si le domaine existe, l'assigner à l'université
       this.newUni.domaine = selectedDomaine;
