@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core'; // Ajout de OnInit
-import { University } from '../model/university.model'; // Nom de classe avec majuscule
+import { Component, OnInit } from '@angular/core';
+import { University } from '../model/university.model'; 
 import { UniversityService } from '../services/university.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Domaine } from '../model/Domaine.model';
@@ -7,10 +7,10 @@ import { Domaine } from '../model/Domaine.model';
 @Component({
   selector: 'app-add-university',
   templateUrl: './add-university.component.html',
-  styleUrls: ['./add-university.component.css'] // Correction ici
+  styleUrls: ['./add-university.component.css'] 
 })
-export class AddUniversityComponent implements OnInit { // Ajout de OnInit
-  newUni = new University(); // Nom de classe avec majuscule
+export class AddUniversityComponent implements OnInit { 
+  newUni = new University(); 
   domaines!: Domaine[];
   newIdDom!: number;
   updatedDomId!: number;
