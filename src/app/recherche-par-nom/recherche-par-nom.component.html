@@ -1,10 +1,19 @@
 <div class="container">
+    <br>
+    <!--  <form class="form-inline">
+          <div class="form-group mx-sm-3 mb-2 mt-2 ">
+          <label>Nom formation</label>
+          <input class="form-control" #searchTerm (keyup)="onKeyUp(searchTerm.value)">
+          </div>
+          </form> -->
     <form class="form-inline">
         <div class="form-group mx-sm-3 mb-2 mt-2 ">
-            <label>Nom Produit en tapant</label>
+            <label>Nom Université en tapant</label>
             <input #nom [(ngModel)]="searchTerm" name="searchTerm" class="form-control">
         </div>
-    </form> 
+    </form>
+        
+    <br>
     <div class="card shadow mb-4">
         <div class="card-body">
             <table class="table table-striped">
@@ -25,7 +34,7 @@
                         <td>{{university.nombreEtudiants}}</td>
                         <td>{{university.domaine.nomDom}}</td>
                         <!--<td><a class="btn btn-danger" (click)="supprimerUniversity(university)">Supprimer</a></td>-->
-                        <td><a class="btn btn-success" [routerLink]="['/updateUniversity',university.idUni]">Modifier</a></td>
+                        <td><a *ngIf="authService.isloggedIn" class="btn btn-success" [routerLink]="['/updateUniversity',university.idUni]">Modifier</a></td>
                     </tr>
                 </tbody>
             </table>

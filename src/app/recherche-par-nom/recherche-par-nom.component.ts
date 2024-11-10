@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { University} from '../model/university.model';
 import { UniversityService } from '../services/university.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-recherche-par-nom',
   templateUrl: './recherche-par-nom.component.html',
-  styleUrl: './recherche-par-nom.component.css'
 })
 export class RechercheParNomComponent {
   universities!: University[];
@@ -14,15 +14,16 @@ export class RechercheParNomComponent {
   searchTerm!: string;
 
   
-  constructor(private universityService: UniversityService) {}
+  constructor(private universityService: UniversityService,
+    public authService: AuthService) {}
   ngOnInit(): void {
-    this.universities=this.universityService.listeUniversities() ;
+    this.universities = this.universityService.listeUniversities();
+    this.allUniversities = this.universities;
   }
   onKeyUp(filterText: string) {
     this.universities = this.allUniversities.filter(item =>
-      item.nomUni.toLowerCase().includes(filterText));
+      item.nomUni!.toLowerCase().includes(filterText.toLowerCase()));
+      }
   }
     
-    
-
-}
+  

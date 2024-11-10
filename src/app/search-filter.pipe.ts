@@ -5,13 +5,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class SearchFilterPipe implements PipeTransform {
 
-  transform(list: any[], filterText: string): any[] {
-    if (!list || !filterText) {
-      return list;
+  transform(list: any[], filterText: string): any {
+    console.log("transforming");
+    return list ? list.filter(item =>
+    item.nomUni.toLowerCase().includes(filterText.toLowerCase())) : [];
     }
-    filterText = filterText.toLowerCase();
-    return list.filter(item =>
-      item.nomProduit.toLowerCase().includes(filterText)
-    );
-  }
+    
 }

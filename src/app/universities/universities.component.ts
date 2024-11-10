@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { University } from '../model/university.model';
 import { UniversityService } from '../services/university.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-universities',
@@ -11,7 +12,8 @@ export class UniversitiesComponent implements OnInit // Correction de l'impléme
 {
   universities!: University[]; // Correction du type et commentaire retiré
 
-  constructor(private UniversityService: UniversityService) { }
+  constructor(private UniversityService: UniversityService,
+    public authService: AuthService) { }
 
   ngOnInit(): void {
     this.universities = this.UniversityService.listeUniversities(); // Accès aux données lors de l'initialisation
